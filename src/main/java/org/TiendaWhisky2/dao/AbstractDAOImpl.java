@@ -28,6 +28,7 @@ public abstract class AbstractDAOImpl {
         password = bundle.getString("jdbc.password");
     }
 
+
     /**
      * Ejecuta un PreparedStatement de tipo insert.
      * @param ps de tipo insert

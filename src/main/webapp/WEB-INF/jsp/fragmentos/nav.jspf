@@ -1,0 +1,80 @@
+<%@ page import="org.TiendaWhisky2.model.Usuario" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="org.TiendaWhisky2.model.Producto" %>
+<%@ page import="java.util.ArrayList" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<%
+    ArrayList<Producto> cartProd = (ArrayList<Producto>) session.getAttribute("productos");
+    int cantCart;
+
+    if (cartProd == null) {
+        cantCart = 0;
+    } else {
+        cantCart = cartProd.size();
+    }
+%>
+<nav>
+    <ul>
+        <li><a href="<%= application.getContextPath() %>">Inicio</a></li>
+        <%
+            Optional<Usuario> usu = Optional.ofNullable((Usuario)session.getAttribute("usuario-logado"));
+            Optional<Usuario> usuarioLog = Optional.ofNullable((Usuario) session.getAttribute("usuario-logado"));
+            boolean esAd = usuarioLog.isPresent() && "Admin".equals(usuarioLog.get().getRol());
+            if (usu.isPresent() && !esAd) {
+        %>
+        <li><a href="<%= application.getContextPath() %>/tienda/categorias">Categorias</a></li>
+        <li><a href="<%= application.getContextPath() %>/tienda/productos">Productos</a></li>
+        <li><a href="<%= application.getContextPath() %>/tienda/pedidos">Pedidos</a></li>
+
+        <%
+            }
+            if (esAd) {
+        %>
+        <li><a href="<%= application.getContextPath() %>/tienda/categorias">Categorias</a></li>
+        <li><a href="<%= application.getContextPath() %>/tienda/productos">Productos</a></li>
+        <li><a href="<%= application.getContextPath() %>/tienda/usuarios">Usuarios</a></li>
+        <%
+
+            }
+        %>
+    </ul>
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <%
+            if (usu.isPresent()) {
+        %>
+
+        <!-- Usuario Logueado -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-right: 5px">
+            <h4><%= usu.get().getUsuario() %></h4>
+            <form action="<%= application.getContextPath() %>/tienda/usuarios/logout/" method="post">
+                <input type="hidden" name="__method__" value="logout" />
+                <button type="submit" style="cursor: pointer; font-size: 12px; padding: 5px 10px; color: white" class="cerrarSesion">
+                    Cerrar Sesion
+                </button>
+            </form>
+        </div>
+        <% if (cantCart > 0) {%>
+        <a href="<%= application.getContextPath() %>/CarritoServlet">
+            Ver carrito (<%= cantCart %>)<i class="fa-solid fa-cart-shopping" style="margin-left: 2px"></i>
+        </a>
+        <%
+            }
+        %>
+
+        <%
+        } else {
+        %>
+        <div style="display: flex; gap: 15px;">
+            <a href="<%= application.getContextPath() %>/tienda/usuarios/login" style="text-decoration: none; color: white;">
+                <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesion
+            </a>
+            <a href="<%= application.getContextPath() %>/tienda/usuarios/crearUsuario" style="text-decoration: none; color: white;">
+                <i class="fa-solid fa-user-plus"></i> Registrarse
+            </a>
+        </div>
+        <%
+            }
+        %>
+    </div>
+</nav>
