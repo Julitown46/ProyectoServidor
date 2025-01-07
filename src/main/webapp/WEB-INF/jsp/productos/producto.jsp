@@ -91,7 +91,7 @@
                 <%
                 } else {
                 %>
-                <form style="display:inline" action="<%= request.getContextPath() + "/CarritoServlet" %>" method="post"
+                <form style="display:inline" action="<%= request.getContextPath() + "/tienda/carrito" %>" method="post"
                       onsubmit="<%= usuarioLogado.isPresent() ? "" : "return verificarSesion();" %>" >
                     <input type="hidden" name="productoId" value="<%= producto.getIdProducto() %>"/>
                     <input type="hidden" name="accion" value="agregar"/>

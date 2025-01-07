@@ -2,7 +2,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page import="org.TiendaWhisky2.model.Producto" %>
 <%@ page import="java.util.ArrayList" %>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
 <%
     ArrayList<Producto> cartProd = (ArrayList<Producto>) session.getAttribute("productos");
     int cantCart;
@@ -25,6 +25,9 @@
         <li><a href="<%= application.getContextPath() %>/tienda/categorias">Categorias</a></li>
         <li><a href="<%= application.getContextPath() %>/tienda/productos">Productos</a></li>
         <li><a href="<%= application.getContextPath() %>/tienda/pedidos">Pedidos</a></li>
+        <a style="margin-right: 50px" href="<%= application.getContextPath() %>/tienda/carrito">
+            Ver carrito (<%= session.getAttribute("cantCart") == null ? 0 : session.getAttribute("cantCart") %>)<i class="fa-solid fa-cart-shopping" style="margin-left: 2px"></i>
+        </a>
 
         <%
             }
@@ -45,6 +48,7 @@
         %>
 
         <!-- Usuario Logueado -->
+
         <div style="display: flex; flex-direction: column; align-items: center; margin-right: 5px">
             <h4><%= usu.get().getUsuario() %></h4>
             <form action="<%= application.getContextPath() %>/tienda/usuarios/logout/" method="post">
@@ -54,13 +58,6 @@
                 </button>
             </form>
         </div>
-        <% if (cantCart > 0) {%>
-        <a href="<%= application.getContextPath() %>/CarritoServlet">
-            Ver carrito (<%= cantCart %>)<i class="fa-solid fa-cart-shopping" style="margin-left: 2px"></i>
-        </a>
-        <%
-            }
-        %>
 
         <%
         } else {

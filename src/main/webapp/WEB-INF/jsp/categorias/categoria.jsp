@@ -33,6 +33,7 @@
     <button type="submit">Ordenar</button>
 </form>
 <h2 style="display: flex; justify-content: center;">Categorias</h2>
+<br>
 <div class="table-container">
     <%
         List<CategoriaDTO> listaCategorias = (List<CategoriaDTO>) request.getAttribute("listaCategorias");
