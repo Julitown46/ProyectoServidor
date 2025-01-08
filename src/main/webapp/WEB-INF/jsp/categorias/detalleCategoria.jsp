@@ -12,6 +12,8 @@
     </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/jsp/fragmentos/header.jspf" %>
+<%@ include file="/WEB-INF/jsp/fragmentos/nav.jspf" %>
 <div id="contenedora" style="margin: 0 auto; width: 900px;">
     <form action="${pageContext.request.contextPath}/tienda/categorias/editar/" method="post">
         <input type="hidden" name="__method__" value="put" />
